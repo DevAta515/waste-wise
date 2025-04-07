@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
-import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn, LogOut } from "lucide-react"
+import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn } from "lucide-react"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import AuthForm from "@/components/AuthForm"
-import { getUnreadNotifications, getUserByEmail, getUserBalance, createNotification, markNotificationAsRead } from "@/utils/db/actions";
+import { getUnreadNotifications, getUserByEmail, getUserBalance, markNotificationAsRead } from "@/utils/db/actions";
 
 
 interface HeaderProps {
@@ -28,13 +28,14 @@ interface Notification {
 }
 
 
-export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
+export default function Header({ onMenuClick }: HeaderProps) {
     const { data: session } = useSession();
     const [loggedIn, setLoggedIn] = useState(false);
     const [signInPopUp, setSignInPopUp] = useState(false);
-    const [loading, setLoading] = useState(true);
+    // const [loading, setLoading] = useState(true);
+    // @ts-ignore
     const [userInfo, setUserInfo] = useState<any>(null);
-    const pathname = usePathname()
+    // const pathname = usePathname()
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [balance, setBalance] = useState(0);
     const isMobile = useMediaQuery("(max-width:768px)")
@@ -80,12 +81,16 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             } catch (error) {
                 console.error(error);
             }
-            fetchNotifications();
-            // Set up periodic checking for new notifications
-            const notificationInterval = setInterval(fetchNotifications, 30000); // Check every 30 seconds
-            return () => clearInterval(notificationInterval);
-        }
-    }, [userInfo])
+        };
+
+        // Call fetchNotifications immediately after defining it
+        fetchNotifications();
+
+        // Set up periodic checking for new notifications
+        const notificationInterval = setInterval(fetchNotifications, 30000); // Check every 30 seconds
+        return () => clearInterval(notificationInterval);
+    }, [session?.user?.email]); // Add session?.user?.email as dependency to run effect when it changes
+
 
     useEffect(() => {
         const fetchUserBalance = async () => {
@@ -101,6 +106,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
         fetchUserBalance();
 
         // Correctly type the event listener
+        // @ts-ignore
         const handleBalanceUpdate = (event: CustomEvent<any>) => {
             setBalance(event.detail);
         };

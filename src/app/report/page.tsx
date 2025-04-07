@@ -151,7 +151,7 @@ export default function ReportPage() {
                     setVerificationStatus('failure');
                 }
             } catch (error) {
-                console.error('Failed to parse JSON response:', text);
+                console.error('Failed to parse JSON response:', error);
                 setVerificationStatus('failure');
             }
         } catch (error) {
@@ -176,6 +176,7 @@ export default function ReportPage() {
                 newReport.amount,
                 preview || undefined,
                 verificationResult ? JSON.stringify(verificationResult) : undefined
+                // @ts-ignore
             ) as any;
 
             const formattedReport = {

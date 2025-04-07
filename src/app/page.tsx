@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 'use client'
 import { useState, useEffect } from 'react'
 import { ArrowRight, Leaf, Recycle, Users, Coins, MapPin, ChevronRight } from 'lucide-react'
@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Poppins } from 'next/font/google'
 import Link from 'next/link'
 import AuthForm from '@/components/AuthForm'
-import ContractInteraction from '@/components/ContractInteraction'
-import { getRecentReports, getAllRewards, getWasteCollectionTasks } from '@/utils/db/actions'
+// import ContractInteraction from '@/components/ContractInteraction'
+// import { getRecentReports, getAllRewards, getWasteCollectionTasks } from '@/utils/db/actions'
 import { useSession } from 'next-auth/react'
 const poppins = Poppins({
   weight: ['300', '400', '600'],
@@ -31,12 +31,12 @@ export default function Home() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [signInPopUp, setSignInPopUp] = useState(false);
   const { data: session } = useSession();
-  const [impactData, setImpactData] = useState({
-    wasteCollected: 0,
-    reportsSubmitted: 0,
-    tokensEarned: 0,
-    co2Offset: 0
-  });
+  // const [impactData, setImpactData] = useState({
+  //   wasteCollected: 0,
+  //   reportsSubmitted: 0,
+  //   tokensEarned: 0,
+  //   co2Offset: 0
+  // });
 
   useEffect(() => {
     if (session?.user) {

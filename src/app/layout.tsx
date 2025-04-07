@@ -4,12 +4,9 @@ import { Providers } from "./providers"
 import { Inter } from 'next/font/google'
 import { useState, useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
-import { getAvailableRewards, getUserByEmail } from "@/utils/db/actions";
-import Header from "@/components/Header";
+// import { getAvailableRewards, getUserByEmail } from "@/utils/db/actions";
 import Sidebar from "@/components/Sidebar";
 import SessionHeader from "@/components/SessionHeader";
-import { SessionProvider } from "next-auth/react"; // ✅ Import SessionProvider
-import { useSession } from "next-auth/react";
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -1,6 +1,6 @@
 import { db } from './dbConfig';
 import { Users, Reports, Rewards, CollectedWastes, Notifications, Transactions } from './schema';
-import { eq, sql, and, desc, ne } from 'drizzle-orm';
+import { eq, sql, and, desc } from 'drizzle-orm';
 
 export async function createUser(email: string, name: string) {
     try {
@@ -62,6 +62,15 @@ export async function getUserBalance(userId: number): Promise<number> {
     }, 0);
     return Math.max(balance, 0); // Ensure balance is never negative
 }
+
+interface Transaction {
+    id: number;
+    type: string;
+    amount: number;
+    description: string;
+    date: Date; // You can use Date type instead of string
+}
+
 export async function getRewardTransactions(userId: number) {
     try {
         console.log('Fetching transactions for user ID:', userId)
@@ -81,7 +90,7 @@ export async function getRewardTransactions(userId: number) {
 
         console.log('Raw transactions from database:', transactions)
 
-        const formattedTransactions = transactions.map(t => ({
+        const formattedTransactions = transactions.map((t: Transaction) => ({
             ...t,
             date: t.date.toISOString().split('T')[0], // Format date as YYYY-MM-DD
         }));
@@ -231,6 +240,14 @@ export async function getOrCreateReward(userId: number) {
         return null;
     }
 }
+interface UpdatedReward {
+    points: number;
+    userId: number;
+    name: string;
+    collectionInfo: string;
+    level: number;
+    isAvailable: boolean;
+}
 
 export async function updateRewardPoints(userId: number, pointsToAdd: number) {
     try {
@@ -243,7 +260,7 @@ export async function updateRewardPoints(userId: number, pointsToAdd: number) {
             .where(eq(Rewards.userId, userId))
             .returning()
             .execute();
-        return updatedReward;
+        return updatedReward as UpdatedReward;
     } catch (error) {
         console.error("Error updating reward points:", error);
         return null;
@@ -356,7 +373,7 @@ export async function getAllRewards() {
     }
 }
 
-export async function saveCollectedWaste(reportId: number, collectorId: number, verificationResult: any) {
+export async function saveCollectedWaste(reportId: number, collectorId: number) {
     try {
         const [collectedWaste] = await db
             .insert(CollectedWastes)
@@ -374,10 +391,19 @@ export async function saveCollectedWaste(reportId: number, collectorId: number, 
         throw error;
     }
 }
+interface Reward {
+    id: number;
+    userId: number;
+    points: number;
+    name: string;
+    collectionInfo: string;
+    level: number;
+    isAvailable: boolean;
+}
 
 export async function redeemReward(userId: number, rewardId: number) {
     try {
-        const userReward = await getOrCreateReward(userId) as any;
+        const userReward = await getOrCreateReward(userId) as Reward;
 
         if (rewardId === 0) {
             // Redeem all points

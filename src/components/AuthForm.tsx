@@ -13,9 +13,9 @@ interface AuthModalProps {
 }
 
 export default function AuthForm({ onClose }: AuthModalProps) {
-    const { data: session } = useSession();
+    // const { data: session } = useSession();
     const modalRef = useRef<HTMLDivElement>(null);
-    const router = useRouter();
+    // const router = useRouter();
     // Close when clicking outside the modal
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -30,7 +30,7 @@ export default function AuthForm({ onClose }: AuthModalProps) {
     }, [onClose]);
 
     const handleGoogleSignIn = async () => {
-        const result = await signIn("google", { callbackUrl: "/", redirect: true });
+        await signIn("google", { callbackUrl: "/", redirect: true });
         // onClose();
 
     };

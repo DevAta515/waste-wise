@@ -1,5 +1,4 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import { NextAuthOptions } from "next-auth";
 import { createUser, getUserByEmail } from "@/utils/db/actions";
@@ -28,7 +27,7 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
     pages: { signIn: "/signin" },
     callbacks: {
-        async signIn({ user, account, profile }) {
+        async signIn({ user }) {
             if (!user.email) return false; // Ensure email exists
 
             try {
