@@ -2,7 +2,7 @@
 import "./globals.css";
 import { Providers } from "./providers"
 import { Inter } from 'next/font/google'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Toaster } from 'react-hot-toast'
 // import { getAvailableRewards, getUserByEmail } from "@/utils/db/actions";
 import Sidebar from "@/components/Sidebar";
@@ -16,7 +16,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [sidebarOpen, setSideBarOpen] = useState(false);
-  // const [totalEarnings, setTotalEarnings] = useState(0);
   // const { data: session } = useSession();
 
   // useEffect(() => {
@@ -45,7 +44,10 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <div className="min-h-screen bg-gray-50 flex flex-col">
-            <SessionHeader onMenuClick={() => setSideBarOpen(!sidebarOpen)} />
+            <SessionHeader onMenuClick={() => {
+              console.log("Clicked")
+              setSideBarOpen(!sidebarOpen)
+            }} />
             <div className="flex flex-1 ">
               <Sidebar open={sidebarOpen} />
               <main className="flex-1 p-4 lg:p-8 ml-0 lg:ml-64 transition-all duration-300">

@@ -4,11 +4,12 @@ import Header from "@/components/Header";
 import { useEffect, useState } from "react";
 import { getUserByEmail, getAvailableRewards } from "@/utils/db/actions";
 
-
-export default function SessionHeader({ onMenuClick }: { onMenuClick: () => void }) {
+interface HeaderProps {
+    onMenuClick: () => void;
+}
+export default function SessionHeader({ onMenuClick }: HeaderProps) {
     const { data: session } = useSession();
     const [totalEarnings, setTotalEarnings] = useState(0);
-    const [sidebarOpen, setSideBarOpen] = useState(false);
     useEffect(() => {
         const fetchTotalEarnings = async () => {
             try {
@@ -30,5 +31,5 @@ export default function SessionHeader({ onMenuClick }: { onMenuClick: () => void
         fetchTotalEarnings()
     }, [session]);
 
-    return <Header onMenuClick={() => setSideBarOpen(!sidebarOpen)} totalEarnings={totalEarnings} />;
+    return <Header onMenuClick={onMenuClick} />;
 }

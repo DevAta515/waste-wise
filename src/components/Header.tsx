@@ -19,7 +19,6 @@ import { getUnreadNotifications, getUserByEmail, getUserBalance, markNotificatio
 
 interface HeaderProps {
     onMenuClick: () => void;
-    totalEarnings: number;
 }
 interface Notification {
     id: number;

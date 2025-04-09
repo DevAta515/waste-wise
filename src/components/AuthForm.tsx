@@ -3,10 +3,10 @@
 import { useEffect, useRef } from "react";
 import { signIn } from "next-auth/react";
 import { X } from "lucide-react";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 
 interface AuthModalProps {
     onClose: () => void;
