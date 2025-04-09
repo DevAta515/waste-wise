@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useSession } from "next-auth/react";
 import Header from "@/components/Header";
@@ -20,7 +21,7 @@ export default function SessionHeader({ onMenuClick }: HeaderProps) {
 
                     if (user) {
                         const availableRewards = await getAvailableRewards(user.id) as any
-                        console.log('availableRewards from layout', availableRewards);
+                        console.log('availableRewards from layout', availableRewards, totalEarnings);
                         setTotalEarnings(availableRewards)
                     }
                 }

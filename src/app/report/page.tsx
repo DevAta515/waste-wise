@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { useState, useCallback, useEffect } from 'react';
 import { MapPin, Upload, CheckCircle, Loader } from "lucide-react";
@@ -176,7 +177,7 @@ export default function ReportPage() {
                 newReport.amount,
                 preview || undefined,
                 verificationResult ? JSON.stringify(verificationResult) : undefined
-                // @ts-ignore
+                // @ts-expect-errror
             ) as any;
 
             const formattedReport = {

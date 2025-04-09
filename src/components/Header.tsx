@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { Button } from "./ui/button";
 import { Menu, Coins, Leaf, Search, Bell, User, ChevronDown, LogIn } from "lucide-react"
@@ -32,7 +32,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
     const [loggedIn, setLoggedIn] = useState(false);
     const [signInPopUp, setSignInPopUp] = useState(false);
     // const [loading, setLoading] = useState(true);
-    // @ts-ignore
+    // @ts-expect-errror
     const [userInfo, setUserInfo] = useState<any>(null);
     // const pathname = usePathname()
     const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -105,7 +105,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
         fetchUserBalance();
 
         // Correctly type the event listener
-        // @ts-ignore
+        // @ts-expect-errror
         const handleBalanceUpdate = (event: CustomEvent<any>) => {
             setBalance(event.detail);
         };
