@@ -172,7 +172,7 @@ export default function CollectPage() {
                     await saveReward(user.id, earnedReward)
 
                     // Save the collected waste
-                    await saveCollectedWaste(selectedTask.id, user.id, parsedResult)
+                    await saveCollectedWaste(selectedTask.id, user.id)
 
                     // setReward(earnedReward)
                     toast.success(`Verification successful! You earned ${earnedReward} tokens!`, {
