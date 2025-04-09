@@ -1,3 +1,4 @@
+"use client"
 import AuthForm from "@/components/AuthForm";
 import { useState } from "react";
 const [signInPopUp, setSignInPopUp] = useState(false);
