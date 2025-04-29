@@ -1,4 +1,4 @@
-You can view the live project here: ## http://waste-wise-ebon.vercel.app/
+You can view the live project here: http://waste-wise-ebon.vercel.app/
 
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
